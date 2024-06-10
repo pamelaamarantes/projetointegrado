@@ -1,0 +1,9 @@
+{
+	"name": "Pamela-datafactory-dados",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bdf03a7b-f9de-4f7c-bef7-bf69454000f9",
+		"tenantId": "b15b64d5-70c4-45e3-92bf-c83f0d4bb2a6"
+	}
+}
