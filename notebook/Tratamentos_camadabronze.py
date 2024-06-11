@@ -6,8 +6,8 @@ dbutils.fs.ls("/mnt/dados/Inbound")
 import requests
 import json
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, udf
-from pyspark.sql.types import IntegerType
+from pyspark.sql.functions import col, regexp_replace ,substring
+from pyspark.sql.types import IntegerType, FloatType
 
 # Iniciar uma sessão Spark
 spark = SparkSession.builder.appName("WineAnalysis").getOrCreate()
@@ -51,6 +51,11 @@ display(wines_df)
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC TRATAMENTOS INICIAIS
+
+# COMMAND ----------
+
 # Substituir valores vazios nas colunas
 wines_df = wines_df.na.fill({
     'Vintage': 'Unknown',
@@ -73,5 +78,43 @@ display(wines_df)
 
 # COMMAND ----------
 
+# Extrair o ano da coluna "Vintage" e criar uma nova coluna "Year"
+wines_df = wines_df.withColumn("Year", substring(col("Vintage"), 1, 4).cast(IntegerType()))
+
+
+# COMMAND ----------
+
+display(wines_df.head(10))
+
+# COMMAND ----------
+
+# Convertendo "Price" para float e tirando o $
+
+wines_df = wines_df.withColumn("Price", regexp_replace(col("Price"), "[$,]", "").cast(FloatType()))
+
+# COMMAND ----------
+
+display(wines_df.head(10))
+
+# COMMAND ----------
+
 # MAGIC %md
-# MAGIC LEITURA DO ARQUIVO PEOPLE
+# MAGIC UNINDO API, WINES e PEOPLE
+
+# COMMAND ----------
+
+# Juntando os dados da API com o arquivo de vinhos com a coluna ID
+merged_df = wines_df.join(api_df, on="id", how="left")
+
+#uma junção "left", o que significa que todas as linhas  serão mantidas no resultado final
+
+
+# Juntando os dados de pessoas com o arquivo de vinhos (FavoriteWine* com Variety*)
+final_df = merged_df.join()
+
+
+
+# COMMAND ----------
+
+display(merged_df)
+
