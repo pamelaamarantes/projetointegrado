@@ -13,7 +13,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/pamarant@emeal.nttdata.com/projetointegrado/notebook/Tratamentos_camadasilver"
+				},
+				"linkedServiceName": {
+					"referenceName": "DataBricks_DataFactory",
+					"type": "LinkedServiceReference"
+				}
 			},
 			{
 				"name": "ingestao-camada-gold",
@@ -33,7 +40,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/pamarant@emeal.nttdata.com/projetointegrado/notebook/Transformacoes_camadaouro"
+				},
+				"linkedServiceName": {
+					"referenceName": "DataBricks_DataFactory",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
