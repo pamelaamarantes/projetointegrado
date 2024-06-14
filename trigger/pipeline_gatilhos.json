@@ -1,0 +1,24 @@
+{
+	"name": "pipeline_gatilhos",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline-datalake",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2024-06-14T09:35:00",
+				"timeZone": "E. South America Standard Time"
+			}
+		}
+	}
+}
